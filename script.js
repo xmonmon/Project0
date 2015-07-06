@@ -5,15 +5,14 @@ $(function() {
 
   var postTemplate = _.template($('#postTemplate').html());
 
-  //element to hold list of todos
   var $listPosts = $("#listOfPosts");
 
 
-   var tasks = [
-   {title: "madrid, spain", description: "this restaurant was amazing! great vegetarian choices."},
-   {title: "lisbon, portugal", description: "great meal to start off our foodventures! never knew what sweet potatoes could be!"},
-   {title: "florence, italy", description: "lovedd risotto! can't find it anywhere but italy!"}
-   ];
+  var tasks = [
+  {title: "Gym", description: "Sweat it out!"},
+  {title: "Food", description: "Get you Macros in!"},
+  {title: "Supps", description: "Did you take your vitamins?"}
+  ];
 
   // this is what will will make it flow through - 'append'
   _.each(tasks, function (task, index) {
@@ -36,66 +35,53 @@ $(function() {
 
   
   blogPost.prototype.render = function() {
-    // _.each(ToDo.all, function (task, index) {
-      var $post = $(postTemplate(this));
-    // $task.attr('data-index', index);
-    $listPosts.append($post)
-    console.log("render works")
-    // });
-}
+  var $post = $(postTemplate(this));
+  $listPosts.append($post)
+  console.log("works")
+  }
 
-    $newFormPost.on("submit", function(event) {
-      event.preventDefault();
+  $newFormPost.on("submit", function(event) {
+  event.preventDefault();
 
-      console.log('post submitted!'); 
-      console.log($('#postTitle').val() ); 
-      console.log($('#postDesc').val() );
-      // console.log($('#postImg').val() );
+  console.log('post submitted!'); 
+  console.log($('#postTitle').val() ); 
+  console.log($('#postDesc').val() );
       
 
-      var postTitle = $('#postTitle').val();
-      var postDesc = $('#postDesc').val();
+  var postTitle = $('#postTitle').val();
+  var postDesc = $('#postDesc').val();
+
+  
+  var post1 = new blogPost(postTitle, postDesc);
+  post1.save();
+  post1.render();
+
+  var $listItems = $("#listOfPosts .post"); 
+  $listItems.click(function (event) {
+    event.preventDefault();
+  });
 
       
-      //this is test data pre-loaded to the HTML
-      var post1 = new blogPost(postTitle, postDesc);
-      post1.save();
-      post1.render();
+  blogPost.prototype.render = function() {
+  var $post = $(postTemplate(this));
+  $listPosts.append($post)
+  console.log("works")
+  }
+  $newFormPost.on("submit", function(event) {
+  event.preventDefault();
 
-      var $listItems = $("#listOfPosts .post"); 
-      $listItems.click(function (event) {
-        event.preventDefault();
-      });
+  console.log('submitted!'); 
+  console.log($('#postTitle').val() ); 
+  console.log($('#postDesc').val() );
+  
+  // create new todo object from form data
+  var postTitle = $('#postTitle').val();
+  var postDesc = $('#postDesc').val();
+  
+  var post1 = new blogPost(postTitle, postDesc);
+  post1.save();
+  post1.render();
 
-      
-      blogPost.prototype.render = function() {
-    // _.each(ToDo.all, function (task, index) {
-      var $post = $(postTemplate(this));
-    // $task.attr('data-index', index);
-    $listPosts.append($post)
-    console.log("render works")
-    // });
-}
-
-
-    $newFormPost.on("submit", function(event) {
-      event.preventDefault();
-
-      console.log('post submitted!'); 
-      console.log($('#postTitle').val() ); 
-      console.log($('#postDesc').val() );
-      // console.log($('#postImg').val() );
-      
-      // create new todo object from form data
-      var postTitle = $('#postTitle').val();
-      var postDesc = $('#postDesc').val();
-      // var postImg = $('#postImg').val();
-      // var toDoData = {title: toDoName, description: toDoDesc, date: toDoDate};
-      
-      var post1 = new blogPost(postTitle, postDesc);
-      post1.save();
-      post1.render();
-
-      var $listItems = $("#listOfPosts .post"); 
-      $listItems.click(function (event) {
-        event.preventDefault();
+  var $listItems = $("#listOfPosts .post"); 
+  $listItems.click(function (event) {
+    event.preventDefault();

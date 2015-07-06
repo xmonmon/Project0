@@ -1,3 +1,22 @@
+h1 {
+  font-family: 'Snell Roundhand';
+  font-size: 38px;
+  font-style: normal;
+  }
+
+h2 {
+  font-family: 'Snell Roundhand';
+  font-size: 36px;
+  font-style: normal;
+}
+
+body {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
 #headerCarousel {
   background-color: #9E5F4D;
   background-position: fluid;
@@ -25,21 +44,3 @@
   position: center;
 }
 
-h1 {
-  font-family: 'Snell Roundhand';
-  font-size: 38px;
-  font-style: normal;
-  }
-
-h2 {
-  font-family: 'Snell Roundhand';
-  font-size: 36px;
-  font-style: normal;
-}
-
-body {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    margin-right: 150px;
-    margin-left: 50px;
-}
