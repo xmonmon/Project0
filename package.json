@@ -1,0 +1,28 @@
+{
+  "name": "mon",
+  "version": "1.0.0",
+  "description": "For my project, I have a fitness app where users can post about what they have worked out along with what they have ate and what dietary supplements they may take.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmonmon/Project0.git"
+  },
+  "author": "Monika Chumber",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xmonmon/Project0/issues"
+  },
+  "homepage": "https://github.com/xmonmon/Project0#readme",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "chai": "^3.0.0",
+    "cheerio": "^0.19.0",
+    "express": "^4.13.1",
+    "mocha": "^2.2.5",
+    "request": "^2.58.0",
+    "underscore": "^1.8.3"
+  }
+}

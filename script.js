@@ -10,7 +10,7 @@ $(function() {
 
   var tasks = [
   {title: "Gym", description: "Sweat it out!"},
-  {title: "Food", description: "Get you Macros in!"},
+  {title: "Food", description: "Get your Macros in!"},
   {title: "Supps", description: "Did you take your vitamins?"}
   ];
 

@@ -2,12 +2,14 @@ h1 {
   font-family: 'Snell Roundhand';
   font-size: 38px;
   font-style: normal;
+  background-position: center;
   }
 
 h2 {
   font-family: 'Snell Roundhand';
   font-size: 36px;
   font-style: normal;
+  background-position: center;
 }
 
 body {
@@ -16,23 +18,23 @@ body {
 
 #headerCarousel {
   background-color: #9E5F4D;
-  background-position: fluid;
+  background-position: center;
 }
 
 #form {
   background-color: #784859;
-  background-position: fluid;
+  background-position: center;
 }
 
 #backgroundForm {
   background-color: #784859;
-  background-position: fluid;
+  background-position: center;
 }
 
 #backgroundPost {
   background-color: #9E5F4D;
   color: #white;
-  background-position: fluid;
+  background-position: center;
 }
 
 .carousel-inner img {
