@@ -1,7 +1,11 @@
-var express = require("express");
-var app = express();
+var express = require("express"),
+    app = express(),
+    bodyParser = require('body-parser');
+    Schema = mongoose.Schema;
 
-var bodyParser = require('body-parser')
+var mongoose = require('mongoose');
+
+mongoose.connect("mongodb://localhost/test");
 
 
 
@@ -28,53 +32,96 @@ var tasks = [
 ];
 app.get('/', function(req,res){
 	res.send('Hello!');
-})
-// this is Reading it
-// for the res.json you  just have to call the variable bc it's all attatched to it
-app.get("/tasks", function (req, res) {
-    res.json(tasks);
 });
 
-// now this will creat it
+// CRUD OPERATIONS W MONGOOSE!
+
+// this is reading it
+// for the res.json you  just have to call the variable bc it's all attatched to it
+// GET ALL DOCUMENTS IN THE COLLECTION, YOU HAVE TO USE '.FIND()'
+app.get("/api/tasks", function (req, res) {
+    Task.find(function (err, phrase){
+      res.json(tasks);
+    });
+});
+
+ //now this will create it
 // you can use the same '/users' bc they are different types of actions (get & post) so they won't happen at the same time
 // you can only use the req.body since we have the var bodyParser at the top
-app.post("/tasks", function(req, res) {
-	var newTask = req.body; 
-	users.push(newTask);
-	res.json(newTask);
+// CREATE 'NEW' AND '.SAVE()' HERE WE'LL USE IT TO MAKE NEW 'TASKS' THEN WE CALL '.SAVE()' TO STORE THE NEW PHRASE IN OUR DATABASE.
+
+// create new phrase
+app.post("/api/tasks", function (req, res) {
+	// var newTask = req.body; 
+  var newTask = new Task({
+    title: req.body.title,
+    description: req.body.description
+  });
+	// users.push(newTask);
+  newTask.save(function (err, savedTask) {
+    res.json(savedTask);
+  });
 });
 
+// GET ONE '.FINDONE()' WE CAN USE THIS TO RETURN THE FIRST DOCUMENT IN THE COLLECTION THAT MATCHES CERTAIN CRITERIA. 
+// get one phrase
+app.get('/api/tasks/:id', function (req, res) {
+  // set the value of the id
+  var targetId = req.params.id;
+
+  // find phrase in db by id
+  Task.findOne({_id: targetId}, function (err, foundPhrase) {
+    res.json(foundTask);
+  });
+});
+
+// UPDATE - USE '.FINDONE()' AND '.SAVE()' THIS WILL ACT JUST LIKE THE FUCNTION ABOUVE
 // update phrase
-app.put('/tasks/:id', function(req, res) {
-  console.log("req.body: ", req.body);
-  console.log("req.params: ", req.params);
+app.put('/api/tasks/:id', function(req, res) {
+  // console.log("req.body: ", req.body);
+  // console.log("req.params: ", req.params);
+
   // set the value of the id
-  var tasksId = parseInt(req.params.id);
+  var targetId = req.params.id;
   // find item in `phrases` array matching the id
-  var targetTasks = _.findWhere(tasks, {id:tasksId});
+  // var targetTasks = _.findWhere(tasks, {id:tasksId});
   // update the phrase's word
-  targetTasks.id = req.body.id;
-  targetTasks.title = req.body.title;
-  targetTasks.description = req.body.description;
+  // targetTasks.id = req.body.id;
+  // targetTasks.title = req.body.title;
+  // targetTasks.description = req.body.description;
   // send back edited object
-  console.log(targetTasks);
-  res.json(targetTasks);
+  // console.log(targetTasks);
+
+  // find the task in the database by the id
+  Task.findOne({_id: targetId}, function (err, foundTask) {
+    // now you have to update the task's info
+    foundTask.title = req.body.title;
+    foundTask.description = req.body.description;
+    // now save the updated task into the database
+    foundTask.save(function (err, savedTask) {
+      res.json(savedTask);
+    });
+  });
 });
 
+// DELETE '.FINDONEANDREMOVE()' THIS TAKES CARE OF FINDING THAT ONE THING AND REMOVING IT FROM THE DATABASE
 // delete post
-app.delete('/tasks/:id', function(req, res) {
-  console.log("req.body: ", req.body);
-  console.log("req.params: ", req.params);
+app.delete('/api/tasks/:id', function(req, res) {
+  // console.log("req.body: ", req.body);
+  // console.log("req.params: ", req.params);
+
   // set the value of the id
-  var tasksId = parseInt(req.params.id);
+  var targetId = req.params.id;
   // find item in `phrases` array matching the id
-  var targetTasks = _.findWhere(tasks, {id:tasksId});
-  // get the index of the item
-  var index = tasks.indexOf(targetTasks);
+  // var targetTasks = _.findWhere(tasks, {id:tasksId});
+ // get the index of the item
+  // var index = tasks.indexOf(targetTasks);
   // remove the item at that index, only remove 1 item
-  tasks.splice(index, 1);
+  // tasks.splice(index, 1);
   // send back deleted object
-  res.json(targetTasks);
+  Task.findOneAndRemove({_id: targetId}, function (err, deletedTask) {
+    res.json(deletedTask);
+  });
 });
 
 app.listen(3000);
